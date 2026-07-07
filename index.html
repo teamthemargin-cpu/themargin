@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Margin — Catálogo de investigación</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<style>
+  :root{
+    --paper: #EDE7D9;
+    --paper-card: #F5F1E6;
+    --ink: #201D17;
+    --ink-soft: #5B564A;
+    --rule: #C9BFA8;
+    --red: #9C2B20;
+    --ochre: #B8862E;
+    --teal: #2B5C56;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--teal);}
+
+  /* ---------- Header ---------- */
+  header{
+    padding:64px 24px 32px;
+    max-width:960px;
+    margin:0 auto;
+    border-bottom:1px solid var(--rule);
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin-bottom:12px;
+  }
+  h1{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:clamp(40px,7vw,64px);
+    margin:0 0 8px;
+    line-height:0.98;
+  }
+  .tagline{
+    font-style:italic;
+    font-family:'Fraunces',serif;
+    font-size:19px;
+    color:var(--ink-soft);
+    max-width:52ch;
+    margin:0 0 28px;
+  }
+  .stat-strip{
+    display:flex;
+    gap:0;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    border-top:1px solid var(--rule);
+  }
+  .stat{
+    padding:14px 24px 14px 0;
+    margin-right:24px;
+    border-right:1px solid var(--rule);
+  }
+  .stat:last-child{border-right:none;}
+  .stat b{
+    display:block;
+    font-size:22px;
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .stat span{color:var(--ink-soft);}
+
+  /* ---------- Filter drawer ---------- */
+  .drawer{
+    max-width:960px;
+    margin:0 auto;
+    padding:20px 24px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+    border-bottom:1px solid var(--rule);
+  }
+  .drawer-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--ink-soft);
+    margin-right:4px;
+  }
+  input[type="text"], select{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    background:var(--paper-card);
+    border:1px solid var(--rule);
+    color:var(--ink);
+    padding:8px 10px;
+    border-radius:2px;
+  }
+  input[type="text"]{flex:1;min-width:180px;}
+  input[type="text"]:focus, select:focus{
+    outline:2px solid var(--teal);
+    outline-offset:1px;
+  }
+
+  /* ---------- Grid ---------- */
+  main{
+    max-width:960px;
+    margin:0 auto;
+    padding:32px 24px 80px;
+  }
+  #grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+    gap:20px;
+  }
+
+  .card{
+    position:relative;
+    background:var(--paper-card);
+    border:1px solid var(--rule);
+    border-left:4px solid var(--red);
+    padding:20px 20px 18px 22px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .card .marg-note{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10px;
+    color:var(--red);
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    display:flex;
+    justify-content:space-between;
+  }
+  .card h2{
+    font-family:'Fraunces',serif;
+    font-weight:600;
+    font-size:20px;
+    line-height:1.2;
+    margin:0;
+  }
+  .card .meta{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:2px;
+  }
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:10.5px;
+    text-transform:uppercase;
+    letter-spacing:0.04em;
+    padding:3px 8px;
+    border:1px solid currentColor;
+    color:var(--ochre);
+    border-radius:2px;
+  }
+  .tag.pais{color:var(--teal);}
+  .resumen{
+    font-size:14px;
+    line-height:1.5;
+    color:var(--ink);
+    flex:1;
+  }
+  .card-footer{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    padding-top:8px;
+    border-top:1px dashed var(--rule);
+  }
+  .empty-state{
+    font-family:'IBM Plex Mono',monospace;
+    color:var(--ink-soft);
+    font-size:13px;
+    padding:40px 0;
+    text-align:center;
+  }
+  footer{
+    max-width:960px;
+    margin:0 auto;
+    padding:24px;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    border-top:1px solid var(--rule);
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .card{transition:transform .12s ease, box-shadow .12s ease;}
+    .card:hover{transform:translateY(-2px); box-shadow:0 6px 16px rgba(32,29,23,0.08);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">Archivo abierto de investigación</div>
+  <h1>The Margin</h1>
+  <p class="tagline">Un catálogo público de proyectos de investigación en curso y completados, anotados al margen por quienes los llevan a cabo.</p>
+  <div class="stat-strip" id="stats"></div>
+</header>
+
+<div class="drawer">
+  <span class="drawer-label">Buscar</span>
+  <input type="text" id="search" placeholder="Título, investigador/a, institución…">
+  <select id="filter-pais"><option value="">País: todos</option></select>
+  <select id="filter-disciplina"><option value="">Disciplina: todas</option></select>
+  <select id="filter-estado"><option value="">Estado: todos</option></select>
+</div>
+
+<main>
+  <div id="grid"></div>
+  <div class="empty-state" id="empty" style="display:none;">No hay proyectos que coincidan con esta búsqueda.</div>
+</main>
+
+<footer>
+  Datos mantenidos en <a href="proyectos.csv">proyectos.csv</a> · Repositorio versionado en GitHub · Consulta el archivo completo de cada proyecto en la carpeta <a href="proyectos/">/proyectos</a>
+</footer>
+
+<script>
+let ALL = [];
+
+function uniqueSorted(arr){
+  return [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'es'));
+}
+
+function populateSelect(id, values){
+  const sel = document.getElementById(id);
+  values.forEach(v=>{
+    const opt = document.createElement('option');
+    opt.value = v; opt.textContent = v;
+    sel.appendChild(opt);
+  });
+}
+
+function renderStats(data){
+  const paises = uniqueSorted(data.map(d=>d.pais)).length;
+  const disciplinas = uniqueSorted(data.map(d=>d.disciplina)).length;
+  const enCurso = data.filter(d=>d.estado === 'en curso').length;
+  document.getElementById('stats').innerHTML = `
+    <div class="stat"><b>${data.length}</b><span>proyectos</span></div>
+    <div class="stat"><b>${paises}</b><span>países</span></div>
+    <div class="stat"><b>${disciplinas}</b><span>disciplinas</span></div>
+    <div class="stat"><b>${enCurso}</b><span>en curso</span></div>
+  `;
+}
+
+function cardHTML(p){
+  const enlace = p.enlace_uwazi && p.enlace_uwazi.trim()
+    ? `<a href="${p.enlace_uwazi}" target="_blank" rel="noopener">Ver perfil completo en Uwazi →</a>`
+    : (p.archivo_detalle ? `<a href="proyectos/${p.archivo_detalle}">Ver expediente completo →</a>` : '');
+  return `
+    <article class="card">
+      <div class="marg-note"><span>${p.estado || '—'}</span><span>${p.fecha_inicio || ''}</span></div>
+      <h2>${p.titulo || 'Sin título'}</h2>
+      <div class="meta">${p.investigador || ''}${p.institucion ? ' · ' + p.institucion : ''}</div>
+      <div class="tags">
+        ${p.pais ? `<span class="tag pais">${p.pais}</span>` : ''}
+        ${p.disciplina ? `<span class="tag">${p.disciplina}</span>` : ''}
+      </div>
+      <p class="resumen">${p.resumen_breve || ''}</p>
+      <div class="card-footer">${enlace}</div>
+    </article>
+  `;
+}
+
+function applyFilters(){
+  const q = document.getElementById('search').value.toLowerCase();
+  const pais = document.getElementById('filter-pais').value;
+  const disciplina = document.getElementById('filter-disciplina').value;
+  const estado = document.getElementById('filter-estado').value;
+
+  const filtered = ALL.filter(p=>{
+    const matchesQ = !q || [p.titulo,p.investigador,p.institucion].join(' ').toLowerCase().includes(q);
+    const matchesPais = !pais || p.pais === pais;
+    const matchesDisciplina = !disciplina || p.disciplina === disciplina;
+    const matchesEstado = !estado || p.estado === estado;
+    return matchesQ && matchesPais && matchesDisciplina && matchesEstado;
+  });
+
+  document.getElementById('grid').innerHTML = filtered.map(cardHTML).join('');
+  document.getElementById('empty').style.display = filtered.length ? 'none' : 'block';
+}
+
+Papa.parse('proyectos.csv', {
+  download:true,
+  header:true,
+  skipEmptyLines:true,
+  complete: function(results){
+    ALL = results.data;
+    renderStats(ALL);
+    populateSelect('filter-pais', uniqueSorted(ALL.map(d=>d.pais)));
+    populateSelect('filter-disciplina', uniqueSorted(ALL.map(d=>d.disciplina)));
+    populateSelect('filter-estado', uniqueSorted(ALL.map(d=>d.estado)));
+    applyFilters();
+  },
+  error: function(){
+    document.getElementById('grid').innerHTML = '';
+    document.getElementById('empty').textContent = 'No se pudo cargar proyectos.csv. Comprueba que el archivo está en la misma carpeta que index.html.';
+    document.getElementById('empty').style.display = 'block';
+  }
+});
+
+['search','filter-pais','filter-disciplina','filter-estado'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', applyFilters);
+  document.getElementById(id).addEventListener('change', applyFilters);
+});
+</script>
+</body>
+</html>
