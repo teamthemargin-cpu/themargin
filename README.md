@@ -1,25 +1,45 @@
-# The Margin — Datos de investigación
+[README.md](https://github.com/user-attachments/files/29748811/README.md)
 
-Este repositorio es el **respaldo abierto y versionado** de los proyectos de investigación recogidos por The Margin. Es la fuente de datos en bruto; la interfaz pública de búsqueda y filtrado vive en Uwazi.
+# The Margin — Catálogo público de investigación
+
+Este repositorio es la **fuente de datos y el sitio público** de The Margin. Se publica como página web a través de GitHub Pages (`index.html`) y esa misma web lee directamente `proyectos.csv`. Uwazi queda como archivo interno de respaldo, no como cara pública.
 
 ## Estructura
 
 ```
 the-margin-data/
-├── proyectos.csv          # Índice maestro con todos los proyectos (un renglón por proyecto)
-├── proyectos/              # Un archivo Markdown por proyecto, con el detalle completo
+├── index.html               # El sitio público (GitHub Pages sirve esto)
+├── proyectos.csv             # Índice maestro con todos los proyectos (un renglón por proyecto)
+├── proyectos/                 # Un archivo Markdown por proyecto, con el detalle completo
 │   └── ejemplo-proyecto.md
-├── ESQUEMA.md               # Descripción de cada columna/campo
-└── CONTRIBUIR.md            # Cómo añadir o actualizar un proyecto
+├── ESQUEMA.md                 # Descripción de cada columna/campo
+└── CONTRIBUIR.md              # Cómo añadir o actualizar un proyecto
 ```
 
-## Cómo se relaciona con Uwazi
+## Cómo activar el sitio público (GitHub Pages)
 
-1. Los investigadores rellenan el formulario de captura.
-2. Se valida la información y se añade una fila en `proyectos.csv` + un archivo en `/proyectos/`.
-3. Desde ahí se sube (o exporta vía CSV) a Uwazi para que el público pueda buscar y filtrar.
+1. En GitHub, entra al repositorio → **Settings** → **Pages** (menú de la izquierda).
+2. En "Build and deployment" → "Source", elige **"Deploy from a branch"**.
+3. En "Branch", selecciona `main` (o la rama principal que uséis) y la carpeta `/ (root)`.
+4. Haz clic en **Save**.
+5. En unos minutos, GitHub te dará la URL del sitio, con el formato:
+   ```
+   https://tu-usuario-u-organizacion.github.io/nombre-del-repositorio/
+   ```
+   Esa es la dirección pública y oficial de The Margin.
 
-Este repo no sustituye a Uwazi: es la copia de seguridad histórica, auditable y de acceso libre de los mismos datos.
+## Cómo se actualiza el sitio
+
+No hace falta tocar `index.html` para añadir proyectos. Basta con:
+1. Añadir una fila nueva en `proyectos.csv` (siguiendo `ESQUEMA.md`).
+2. Añadir el archivo Markdown correspondiente en `/proyectos/`.
+3. Subir los cambios (ver `CONTRIBUIR.md`).
+
+GitHub Pages se actualiza solo, normalmente en 1-2 minutos tras cada cambio.
+
+## Qué papel juega Uwazi ahora
+
+Uwazi pasa a ser el archivo interno de trabajo: gestión de envíos, validación, campos internos no públicos. Cuando un proyecto está validado, sus datos públicos pasan a `proyectos.csv` para aparecer en el sitio.
 
 ## Licencia de los datos
 
