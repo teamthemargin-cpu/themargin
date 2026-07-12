@@ -36,7 +36,13 @@ This project maps how conservative and religious networks are deliberately using
 
 Rather than treating this as simple backlash, the research reframes it as a proactive attempt to build an alternative vision of human rights — one that takes seriously the genuine tensions between religious freedom, gender equality, and LGBTI+ rights.
 
-The core contribution is reconceiving the ECHR not as a neutral, progressively-trending institution, but as a genuinely open and contested arena where competing visions of rights, pluralism, and European identity are actively being fought over.
+The core contribution is reconceiving the ECHR not as a neutral, progressively-trending institution, but as a genuinely open and contested arena where competing visions of rights, pluralism, and European identity are actively being fought over
+
+
+## External link
+
+- [Thesis Repository](https://tesidottorato.depositolegale.it/handle/20.500.14242/355601)
+
 
 ## Contact
 
