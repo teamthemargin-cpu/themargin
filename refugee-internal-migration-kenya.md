@@ -1,7 +1,7 @@
 ---
 id: 2024-refugee-internal-migration-kenya
 title: "Navigating the City: Internal Migration of Refugees from Dadaab and Kakuma Refugee Camps to Nairobi, Kenya"
-researcher: Asrat
+researcher: Asrat Koricha Tolossa
 institution: Refugee Led Research Hub (RLRH)
 country: Kenya
 discipline: Forced Migration and Displacement
