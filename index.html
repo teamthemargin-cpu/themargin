@@ -153,20 +153,6 @@
     gap:10px;
     box-shadow:0 8px 22px rgba(6,12,16,0.5);
   }
-  .marginalia{
-    position:absolute;
-    left:-6px;
-    top:-14px;
-    transform:rotate(-7deg);
-    font-family:'Caveat',cursive;
-    font-weight:600;
-    font-size:20px;
-    color:var(--coral);
-    background:var(--paper-card);
-    padding:0 6px;
-    white-space:nowrap;
-    pointer-events:none;
-  }
   .card .marg-note{
     font-family:'IBM Plex Mono',monospace;
     font-size:10px;
@@ -281,12 +267,6 @@
 <script>
 let ALL = [];
 
-const MARGIN_NOTES = {
-  completed: ["read this", "closed out", "documented", "on record"],
-  ongoing: ["watch this →", "in progress", "tracking →", "developing"],
-  suspended: ["on hold", "paused", "revisit"]
-};
-
 function uniqueSorted(arr){
   return [...new Set(arr.filter(Boolean))].sort((a,b)=>a.localeCompare(b,'en'));
 }
@@ -312,19 +292,12 @@ function renderStats(data){
   `;
 }
 
-function marginNoteFor(status, seed){
-  const pool = MARGIN_NOTES[status] || ["note"];
-  return pool[seed % pool.length];
-}
-
 function cardHTML(p, i){
   const link = p.external_link && p.external_link.trim()
     ? `<a href="${p.external_link}" target="_blank" rel="noopener">View full record →</a>`
     : (p.file ? `<a href="proyectos/${p.file}">View full record →</a>` : '');
-  const note = marginNoteFor(p.status, i);
   return `
     <article class="card">
-      <span class="marginalia">${note}</span>
       <h2>${p.title || 'Untitled'}</h2>
       <div class="meta">${p.researcher || ''}${p.institution ? ' · ' + p.institution : ''}</div>
       <div class="tags">
