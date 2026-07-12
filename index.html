@@ -9,29 +9,32 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 <style>
   :root{
-    --bg: #12181D;           /* dark slate, near-black */
-    --paper-card: #232D34;    /* dark card, muted slate */
-    --ink: #E9E2D2;           /* warm off-white text on card */
-    --ink-soft: #A79D89;
-    --rule: rgba(233,226,210,0.14);
-    --rule-on-bg: rgba(233,226,210,0.12);
-    --red: #D98B7C;
-    --red-on-bg: #D98B7C;
+    --bg: #142129;
+    --bg-rise: #1B2C35;
+    --paper-card: #1F333D;
+    --paper-card-hover: #25404C;
+    --ink: #F4E9D5;
+    --ink-soft: #AFA48D;
+    --rule: rgba(244,233,213,0.14);
+    --rule-on-bg: rgba(244,233,213,0.10);
+    --coral: #D98B7C;
     --ochre: #D6A756;
-    --teal: #7FB6AC;
-    --cream: #E9E2D2;
+    --mint: #8FD9CB;
+    --navy: #0D2640;
+    --cream: #F4E9D5;
   }
   *{box-sizing:border-box;}
   body{
     margin:0;
-    background:var(--bg);
+    background:
+      radial-gradient(1200px 500px at 15% -10%, var(--bg-rise) 0%, transparent 60%),
+      var(--bg);
     color:var(--cream);
     font-family:'Inter',sans-serif;
     -webkit-font-smoothing:antialiased;
   }
-  a{color:var(--teal);}
+  a{color:var(--mint);}
 
-  /* ---------- Header ---------- */
   header{
     padding:56px 24px 32px;
     max-width:960px;
@@ -54,7 +57,7 @@
     font-size:12px;
     letter-spacing:0.14em;
     text-transform:uppercase;
-    color:var(--red-on-bg);
+    color:var(--ochre);
     margin-bottom:2px;
   }
   h1{
@@ -95,7 +98,6 @@
   }
   .stat span{color:rgba(244,233,213,0.65);}
 
-  /* ---------- Filter drawer ---------- */
   .drawer{
     max-width:960px;
     margin:0 auto;
@@ -129,7 +131,6 @@
     outline-offset:1px;
   }
 
-  /* ---------- Grid ---------- */
   main{
     max-width:960px;
     margin:0 auto;
@@ -145,12 +146,12 @@
     position:relative;
     background:var(--paper-card);
     border:1px solid var(--rule);
-    border-left:4px solid var(--red);
+    border-left:4px solid var(--coral);
     padding:20px 20px 18px 22px;
     display:flex;
     flex-direction:column;
     gap:10px;
-    box-shadow:0 8px 20px rgba(0,0,0,0.35);
+    box-shadow:0 8px 22px rgba(6,12,16,0.5);
   }
   .marginalia{
     position:absolute;
@@ -160,7 +161,7 @@
     font-family:'Caveat',cursive;
     font-weight:600;
     font-size:20px;
-    color:var(--red);
+    color:var(--coral);
     background:var(--paper-card);
     padding:0 6px;
     white-space:nowrap;
@@ -206,7 +207,7 @@
     color:var(--ochre);
     border-radius:2px;
   }
-  .tag.country{color:var(--teal);}
+  .tag.country{color:var(--mint);}
   .summary{
     font-size:14px;
     line-height:1.5;
@@ -237,8 +238,12 @@
   }
   footer a{color:rgba(244,233,213,0.85);}
   @media (prefers-reduced-motion: no-preference){
-    .card{transition:transform .12s ease, box-shadow .12s ease;}
-    .card:hover{transform:translateY(-2px); box-shadow:0 12px 26px rgba(0,0,0,0.45);}
+    .card{transition:transform .12s ease, box-shadow .12s ease, background .12s ease;}
+    .card:hover{
+      transform:translateY(-2px);
+      background:var(--paper-card-hover);
+      box-shadow:0 14px 30px rgba(6,12,16,0.6);
+    }
   }
 </style>
 </head>
@@ -277,8 +282,8 @@
 let ALL = [];
 
 const MARGIN_NOTES = {
-  completed: ["seen ✓", "filed", "read this", "noted"],
-  ongoing: ["watch this →", "in progress", "keep an eye", "developing"],
+  completed: ["read this", "closed out", "documented", "on record"],
+  ongoing: ["watch this →", "in progress", "tracking →", "developing"],
   suspended: ["on hold", "paused", "revisit"]
 };
 
